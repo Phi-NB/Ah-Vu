@@ -1,0 +1,130 @@
+.statistic {
+    width: 100%;
+}
+
+.statisticInfo{
+    
+}
+
+.staticHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.group_btn{
+    
+}
+.group_btn .group_btn_action{
+    display: flex;
+    min-width: 100px;
+    justify-content: flex-end;
+}
+
+/* .flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+} */
+
+.padding {
+    padding: 8px 16px 8px 8px;
+}
+
+.paddingHeader {
+    padding: 6px 8px;
+}
+
+.paddingLeft_32 {
+    padding-left: 32px !important;
+}
+
+.headerdrop {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-direction: row;
+    gap: 10px;
+    padding: 7px 8px;
+    cursor: pointer;
+    background-color: var(--primary-default);
+}
+
+.headerdrop span{
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    letter-spacing: -0.0969231px;
+    text-transform: uppercase;
+    color: var(--secondary-dark);
+    /* Primary/Default */
+}
+
+.rowdrop_detail {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px;
+}
+
+.rowdrop_detail div:last-of-type{
+    font-weight: 700;
+}
+.rowdrop_detail:nth-child(2n) {
+    background-color: var(--primary-default);
+}
+
+.rowdrop_detail div {
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    display: flex;
+    align-items: center;
+    letter-spacing: -0.0969231px;
+
+    /* Secondary/Default */
+
+    color: var(--secondary-default);
+
+    /* Inside auto layout */
+
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+
+.cursor {
+    cursor: pointer;
+}
+
+.title_ic {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+    /* identical to box height, or 133% */
+
+    display: flex;
+    align-items: center;
+    letter-spacing: -0.0969231px;
+
+    /* Secondary/Default */
+    margin-left: 13px;
+    color: var(--secondary-default);
+}
+
+.statistic .lablel {
+    font-weight: normal;
+    margin: 0;
+    font-family: Roboto;
+    display: inline-block;
+    line-height: 32px;
+    white-space: nowrap;
+    color: var(--secondary-dark);
+}
