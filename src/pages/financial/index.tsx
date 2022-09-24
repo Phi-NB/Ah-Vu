@@ -15,11 +15,18 @@ import { getDataColumns } from "./columnIncome";
 import style from "./financial.module.css";
 import { IncomeStatement } from "./IncomeStatement";
 import { CashFlow } from "./CashFlow";
-import { BalanceSheet } from './BalanceSheet'
+import { BalanceSheet } from "./BalanceSheet";
 
 type FinancialProps = {
   data: LooseObject;
+  queryString: string;
 };
+
+interface IDataSelect {
+  target: {
+    value: string;
+  };
+}
 
 export async function getStaticProps() {
   const filePath = path.join(process.cwd(), "src/json/data.json");
@@ -33,9 +40,10 @@ export async function getStaticProps() {
 const Financial: NextPage<FinancialProps> = ({
   data = { text: "Financial" },
 }) => {
-  const [displayIcome, setDisplayIcome] = useState<Boolean>(true);
-  const [displayBalance, setDisplayBalance] = useState<Boolean>(false);
-  const [displayCash, setDisplayCash] = useState<Boolean>(false);
+  const [displayIcome, setDisplayIcome] = useState<boolean>(true);
+  const [displayBalance, setDisplayBalance] = useState<boolean>(false);
+  const [displayCash, setDisplayCash] = useState<boolean>(false);
+  const [dataSelect, setDataSelect] = useState<string>("Annual");
 
   const showTabIcome = () => {
     setDisplayIcome(true);
@@ -51,6 +59,10 @@ const Financial: NextPage<FinancialProps> = ({
     setDisplayIcome(false);
     setDisplayBalance(false);
     setDisplayCash(true);
+  };
+
+  const getDataSelect = (value: IDataSelect) => {
+    setDataSelect(value.target.value);
   };
   return (
     <React.Fragment>
@@ -89,7 +101,7 @@ const Financial: NextPage<FinancialProps> = ({
                     </button>
                   </div>
                   <div>
-                    <Select defaultValue="Annual" displayEmpty>
+                    <Select defaultValue="Annual" onChange={getDataSelect}>
                       <MenuItem value="Annual">Annual</MenuItem>
                       <MenuItem value="Quarterly">Quarterly</MenuItem>
                     </Select>
@@ -99,16 +111,24 @@ const Financial: NextPage<FinancialProps> = ({
                   <IncomeStatement
                     titleTable="INCOME STATEMENT"
                     data={data[obj]}
+                    queryString={dataSelect}
                   />
                 )}
                 {displayBalance && (
-                  <BalanceSheet titleTable="BALANCE SHEET" data={data[obj]} />
+                  <BalanceSheet
+                    titleTable="BALANCE SHEET"
+                    data={data[obj]}
+                    queryString={dataSelect}
+                  />
                 )}
                 {displayCash && (
-                  <CashFlow titleTable="CASH FLOW" data={data[obj]} />
+                  <CashFlow
+                    titleTable="CASH FLOW"
+                    data={data[obj]}
+                    queryString={dataSelect}
+                  />
                 )}
               </div>
-
               {/* ---- End Financial ---- */}
             </div>
           </div>

@@ -20,19 +20,18 @@ export interface IIncomeStatementProps {
     financials: { income: []; income_ttm: [] };
   };
   titleTable: string;
+  queryString: string;
 }
 
 export function IncomeStatement(props: IIncomeStatementProps) {
-  const { data, titleTable } = props;
+  const { data, titleTable, queryString } = props;
   const [expandedRowIds, setExpandenRowIds] = useState<any>([]);
 
   const getChildRows = (row: any, rootRows: any) => {
     return row ? row.items : rootRows;
   };
 
-  const [tableColumnExtensions] = useState([
-    { columnName: "name", width: 800 },
-  ]);
+  const [tableColumnExtensions] = useState([]);
 
   const [allOpen, setAllOpen] = useState(false);
   const expandAll = () => {
@@ -48,18 +47,27 @@ export function IncomeStatement(props: IIncomeStatementProps) {
     setExpandenRowIds([]);
   };
 
-  const TooltipFormatter = (value: any) => (
-    <Tooltip title={value}>
-      <span>{value}</span>
-    </Tooltip>
-  );
-  const CellTooltip = (props) => (
-    <DataTypeProvider
-      for={getDataColumns(data)}
-      formatterComponent={TooltipFormatter}
-      {...props}
-    />
-  );
+  const TooltipFormatter = (value: any) => {
+    console.log(value);
+    return (
+      <Tooltip title={value}>
+        <span>{value}</span>
+      </Tooltip>
+    );
+  };
+
+  const CellTooltip = (props: any) => {
+    console.log(props);
+    return (
+      <DataTypeProvider
+        for={getDataColumns(data).map(({ name }: any) => name)}
+        formatterComponent={TooltipFormatter}
+        {...props}
+      />
+    );};
+
+  // console.log(getDataColumns(data).map(({ name }: any) => name));
+
   return (
     <div>
       <div className={style.profileInfoTable}>
@@ -75,24 +83,27 @@ export function IncomeStatement(props: IIncomeStatementProps) {
             className={style.profileInfoTableBtnEpCo}
             onClick={collapseAll}
           >
-            <Image src="/collapse.svg" width={12} height={12} />
+            <Image src="/ic-collapse.png" width={12} height={12} />
             <span style={{ marginLeft: 12 }}>Collapse All</span>
           </button>
         ) : (
           <button className={style.profileInfoTableBtnEpCo} onClick={expandAll}>
-            <Image src="/expand.svg" width={12} height={12} />
+            <Image src="/ic-expand.png" width={12} height={12} />
             <span style={{ marginLeft: 12 }}>Expand All</span>
           </button>
         )}
       </div>
       <Paper>
-        <Grid rows={getDataTable(data)} columns={getDataColumns(data)}>
-          <CellTooltip />
+        <Grid
+          rows={getDataTable(data, queryString)}
+          columns={getDataColumns(data)}
+        >
+          {/* <CellTooltip /> */}
           <TreeDataState
             expandedRowIds={expandedRowIds}
             onExpandedRowIdsChange={setExpandenRowIds}
           />
-          <CustomTreeData getChildRows={getChildRows} />  
+          <CustomTreeData getChildRows={getChildRows} />
           <Table columnExtensions={tableColumnExtensions} />
           <TableHeaderRow />
           <TableTreeColumn for="breakDown" />

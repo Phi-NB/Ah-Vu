@@ -18,10 +18,11 @@ export interface IBalanceSheetProps {
     financials: { income: []; income_ttm: [] };
   };
   titleTable: string;
+  queryString: string;
 }
 
 export function BalanceSheet(props: IBalanceSheetProps) {
-  const { data, titleTable } = props;
+  const { data, titleTable, queryString } = props;
   const [expandedRowIds, setExpandenRowIds] = useState<any>([]);
 
   const getChildRows = (row: any, rootRows: any) => {
@@ -60,18 +61,21 @@ export function BalanceSheet(props: IBalanceSheetProps) {
             className={style.profileInfoTableBtnEpCo}
             onClick={collapseAll}
           >
-            <Image src="/collapse.svg" width={12} height={12} />
+            <Image src="/ic-collapse.png" width={12} height={12} />
             <span style={{ marginLeft: 12 }}>Collapse All</span>
           </button>
         ) : (
           <button className={style.profileInfoTableBtnEpCo} onClick={expandAll}>
-            <Image src="/expand.svg" width={12} height={12} />
+            <Image src="/ic-expand.png" width={12} height={12} />
             <span style={{ marginLeft: 12 }}>Expand All</span>
           </button>
         )}
       </div>
       <Paper>
-        <Grid rows={getDataTable(data)} columns={getDataColumns(data)}>
+        <Grid
+          rows={getDataTable(data, queryString)}
+          columns={getDataColumns(data)}
+        >
           <TreeDataState
             expandedRowIds={expandedRowIds}
             onExpandedRowIdsChange={setExpandenRowIds}
