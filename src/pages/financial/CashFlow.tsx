@@ -9,13 +9,20 @@ import {
   TableHeaderRow,
   TableTreeColumn,
 } from "@devexpress/dx-react-grid-material-ui";
+import { useIntl } from "react-intl";
 import { getDataTable } from "./convertDataCashFlow";
 import { getDataColumns } from "./columnIncome";
+import NoData from "./NoData";
 
 export interface ICashFlowProps {
   data: {
     profile: { financial_currency: string };
-    financials: { income: []; income_ttm: [] };
+    financials: {
+      cashflow: [];
+      cashflow_ttm: [];
+      cashflow_quarterly: [];
+      cashflow_quarterly_ttm: []
+    };
   };
   titleTable: string;
   queryString: string;
@@ -24,6 +31,7 @@ export interface ICashFlowProps {
 export function CashFlow(props: ICashFlowProps) {
   const { data, titleTable, queryString } = props;
   const [expandedRowIds, setExpandenRowIds] = useState<any>([]);
+  const intl = useIntl();
 
   const getChildRows = (row: any, rootRows: any) => {
     return row ? row.items : rootRows;
@@ -46,14 +54,31 @@ export function CashFlow(props: ICashFlowProps) {
     setAllOpen(false);
     setExpandenRowIds([]);
   };
+
+  if (queryString === "Annual") {
+    if (
+      data.financials.cashflow.length === 0 &&
+      data.financials.cashflow_ttm.length === 0
+    ) {
+      return <NoData />;
+    }
+  } else {
+    if (
+      data.financials.cashflow_quarterly.length === 0 &&
+      data.financials.cashflow_quarterly_ttm.length === 0
+    ) {
+      return <NoData />;
+    }
+  }
   return (
     <div>
       <div className={style.profileInfoTable}>
         <div className={style.profileInfo}>
           <div className={style.profileInfoIncome}>{titleTable}</div>
           <div className={style.profileInfoFinancial}>
-            Currency in {data?.profile.financial_currency}. All numbers in
-            thousands
+            <span>{intl.formatMessage({ id: "lang_currency_in" })}</span>
+            {data?.profile.financial_currency}
+            <span>{intl.formatMessage({ id: "lang_all_numbers" })}</span>
           </div>
         </div>
         {allOpen ? (
@@ -62,12 +87,16 @@ export function CashFlow(props: ICashFlowProps) {
             onClick={collapseAll}
           >
             <Image src="/ic-collapse.png" width={12} height={12} />
-            <span style={{ marginLeft: 12 }}>Collapse All</span>
+            <span style={{ marginLeft: 12 }}>
+              {intl.formatMessage({ id: "lang_collapse" })}
+            </span>
           </button>
         ) : (
           <button className={style.profileInfoTableBtnEpCo} onClick={expandAll}>
             <Image src="/ic-expand.png" width={12} height={12} />
-            <span style={{ marginLeft: 12 }}>Expand All</span>
+            <span style={{ marginLeft: 12 }}>
+              {intl.formatMessage({ id: "lang_expand" })}
+            </span>
           </button>
         )}
       </div>

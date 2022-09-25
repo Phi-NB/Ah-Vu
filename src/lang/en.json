@@ -8,6 +8,17 @@
     "lang_title_pay": "Pay",
     "lang_title_excercised": "Excercised",
     "lang_title_yearborn": "Year born",
-    "lang_description": "Description"
+    "lang_description": "Description",
 
+
+    "lang_currency_in": "Currency in ",
+    "lang_all_numbers": ". All numbers in thousands",
+    "lang_collapse": "Collapse All",
+    "lang_expand": "Expand All",
+    "lang_title_icome": "INCOME STATEMENT",
+    "lang_title_balance": "BALANCE SHEET",
+    "lang_title_cash_low": "CASH FLOW",
+    "lang_select_annual": "Annual",
+    "lang_select_quarterly": "Quarterly",
+    "lang_no_data": "No Data"
 }

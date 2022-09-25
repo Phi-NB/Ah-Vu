@@ -11,13 +11,20 @@ import {
 } from "@devexpress/dx-react-grid-material-ui";
 import Tooltip from "@mui/material/Tooltip";
 import { DataTypeProvider } from "@devexpress/dx-react-grid";
+import { useIntl } from "react-intl";
 import { getDataTable } from "./convertDataIncome";
 import { getDataColumns } from "./columnIncome";
+import NoData from "./NoData";
 
 export interface IIncomeStatementProps {
   data: {
     profile: { financial_currency: string };
-    financials: { income: []; income_ttm: [] };
+    financials: {
+      income: [];
+      income_ttm: [];
+      income_quarterly: [];
+      income_quarterly_ttm: []
+    };
   };
   titleTable: string;
   queryString: string;
@@ -26,6 +33,7 @@ export interface IIncomeStatementProps {
 export function IncomeStatement(props: IIncomeStatementProps) {
   const { data, titleTable, queryString } = props;
   const [expandedRowIds, setExpandenRowIds] = useState<any>([]);
+  const intl = useIntl();
 
   const getChildRows = (row: any, rootRows: any) => {
     return row ? row.items : rootRows;
@@ -50,7 +58,7 @@ export function IncomeStatement(props: IIncomeStatementProps) {
   const TooltipFormatter = (value: any) => {
     console.log(value);
     return (
-      <Tooltip title={value}>
+      <Tooltip title={value.value}>
         <span>{value}</span>
       </Tooltip>
     );
@@ -64,9 +72,24 @@ export function IncomeStatement(props: IIncomeStatementProps) {
         formatterComponent={TooltipFormatter}
         {...props}
       />
-    );};
+    );
+  };
 
-  // console.log(getDataColumns(data).map(({ name }: any) => name));
+  if (queryString === "Annual") {
+    if (
+      data.financials.income.length === 0 &&
+      data.financials.income_ttm.length === 0
+    ) {
+      return <NoData />;
+    }
+  } else {
+    if (
+      data.financials.income_quarterly.length === 0 &&
+      data.financials.income_quarterly_ttm.length === 0
+    ) {
+      return <NoData />;
+    }
+  }
 
   return (
     <div>
@@ -74,8 +97,9 @@ export function IncomeStatement(props: IIncomeStatementProps) {
         <div className={style.profileInfo}>
           <div className={style.profileInfoIncome}>{titleTable}</div>
           <div className={style.profileInfoFinancial}>
-            Currency in {data?.profile.financial_currency}. All numbers in
-            thousands
+            <span>{intl.formatMessage({ id: "lang_currency_in" })}</span>
+            {data?.profile.financial_currency}
+            <span>{intl.formatMessage({ id: "lang_all_numbers" })}</span>
           </div>
         </div>
         {allOpen ? (
@@ -84,12 +108,16 @@ export function IncomeStatement(props: IIncomeStatementProps) {
             onClick={collapseAll}
           >
             <Image src="/ic-collapse.png" width={12} height={12} />
-            <span style={{ marginLeft: 12 }}>Collapse All</span>
+            <span style={{ marginLeft: 12 }}>
+              {intl.formatMessage({ id: "lang_collapse" })}
+            </span>
           </button>
         ) : (
           <button className={style.profileInfoTableBtnEpCo} onClick={expandAll}>
             <Image src="/ic-expand.png" width={12} height={12} />
-            <span style={{ marginLeft: 12 }}>Expand All</span>
+            <span style={{ marginLeft: 12 }}>
+              {intl.formatMessage({ id: "lang_expand" })}
+            </span>
           </button>
         )}
       </div>

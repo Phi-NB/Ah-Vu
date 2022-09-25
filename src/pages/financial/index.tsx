@@ -10,12 +10,11 @@ import path from "path";
 import fsPromises from "fs/promises";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
-import { getDataTable } from "./convertDataIncome";
-import { getDataColumns } from "./columnIncome";
 import style from "./financial.module.css";
 import { IncomeStatement } from "./IncomeStatement";
 import { CashFlow } from "./CashFlow";
 import { BalanceSheet } from "./BalanceSheet";
+import { useIntl } from "react-intl";
 
 type FinancialProps = {
   data: LooseObject;
@@ -40,6 +39,7 @@ export async function getStaticProps() {
 const Financial: NextPage<FinancialProps> = ({
   data = { text: "Financial" },
 }) => {
+  const intl = useIntl();
   const [displayIcome, setDisplayIcome] = useState<boolean>(true);
   const [displayBalance, setDisplayBalance] = useState<boolean>(false);
   const [displayCash, setDisplayCash] = useState<boolean>(false);
@@ -81,7 +81,7 @@ const Financial: NextPage<FinancialProps> = ({
                         displayIcome ? style.profileGroupBtnButtonActive : ""
                       }`}
                     >
-                      INCOME STATEMENT
+                      {intl.formatMessage({ id: "lang_title_icome" })}
                     </button>
                     <button
                       onClick={showTabBalance}
@@ -89,7 +89,7 @@ const Financial: NextPage<FinancialProps> = ({
                         displayBalance ? style.profileGroupBtnButtonActive : ""
                       }`}
                     >
-                      BALANCE SHEET
+                      {intl.formatMessage({ id: "lang_title_balance" })}
                     </button>
                     <button
                       onClick={showTabCash}
@@ -97,33 +97,41 @@ const Financial: NextPage<FinancialProps> = ({
                         displayCash ? style.profileGroupBtnButtonActive : ""
                       }`}
                     >
-                      CASH FLOW
+                      {intl.formatMessage({ id: "lang_title_cash_low" })}
                     </button>
                   </div>
                   <div>
                     <Select defaultValue="Annual" onChange={getDataSelect}>
-                      <MenuItem value="Annual">Annual</MenuItem>
-                      <MenuItem value="Quarterly">Quarterly</MenuItem>
+                      <MenuItem value="Annual">
+                        {intl.formatMessage({ id: "lang_select_annual" })}
+                      </MenuItem>
+                      <MenuItem value="Quarterly">
+                        {intl.formatMessage({ id: "lang_select_quarterly" })}
+                      </MenuItem>
                     </Select>
                   </div>
                 </div>
                 {displayIcome && (
                   <IncomeStatement
-                    titleTable="INCOME STATEMENT"
+                    titleTable={intl.formatMessage({ id: "lang_title_icome" })}
                     data={data[obj]}
                     queryString={dataSelect}
                   />
                 )}
                 {displayBalance && (
                   <BalanceSheet
-                    titleTable="BALANCE SHEET"
+                    titleTable={intl.formatMessage({
+                      id: "lang_title_balance",
+                    })}
                     data={data[obj]}
                     queryString={dataSelect}
                   />
                 )}
                 {displayCash && (
                   <CashFlow
-                    titleTable="CASH FLOW"
+                    titleTable={intl.formatMessage({
+                      id: "lang_title_cash_low",
+                    })}
                     data={data[obj]}
                     queryString={dataSelect}
                   />
