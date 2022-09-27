@@ -1,18 +1,20 @@
+import data from '../../lang/en.json';
+
 export const getDataColumns = (propsData: any) => {
   const convertDate = (value: string) => {
     const [year, month, day] = value.split("-");
 
     return [month, day, year].join("/");
-  }
+  };
   const data = propsData.financials.income;
   return [
     {
       name: "breakDown",
-      title: "BREAK DOWN",
+      title: data.lang_breakDown,
     },
     {
       name: "ttm",
-      title: "TTM",
+      title: data.lang_ttm,
     },
     {
       name: "reported_time_display3",

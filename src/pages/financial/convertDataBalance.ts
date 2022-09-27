@@ -16,7 +16,6 @@ export const getDataTable = (propsData: any, queryString: string) => {
   } else {
     data = propsData.financials.balance_sheet_quarterly;
   }
-  console.log(data);
 
   return [
     {

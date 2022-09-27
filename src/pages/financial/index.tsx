@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import React, { useState } from "react";
 import { GetServerSideProps } from "next";
 import axios from "axios";
-import { getExampleDataUrl, obj } from "api/api";
+import { getData, getExampleDataUrl, obj } from "api/api";
 import { LooseObject } from "interfaces";
 import Footer from "components/Footer/Footer";
 import Something from "components/Something/Something";
@@ -27,14 +27,22 @@ interface IDataSelect {
   };
 }
 
-export async function getStaticProps() {
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const symbol = context.query["symbol"];
+  const token = context.query["token"];
+  const theme = context.query["theme"];
+
   const filePath = path.join(process.cwd(), "src/json/data.json");
   const jsonData = await fsPromises.readFile(filePath);
   const objectData = JSON.parse(jsonData.toString());
-  return {
-    props: { data: objectData },
-  };
-}
+  const response = await getData(symbol, token);
+
+  if (response) {
+    return { props: { data: response?.data || {} } };
+  } else {
+    return { props: { data: objectData } };
+  }
+};
 
 const Financial: NextPage<FinancialProps> = ({
   data = { text: "Financial" },
@@ -72,29 +80,29 @@ const Financial: NextPage<FinancialProps> = ({
             <div className="wrapComponent">
               {/* ---- Financial ---- */}
 
-              <div className="profile">
-                <div className={style.profileTool}>
-                  <div className={`${style.profileGroupBtn}`}>
+              <div className="financical">
+                <div className={style.financicalTool}>
+                  <div className={`${style.financicalGroupBtn}`}>
                     <button
                       onClick={showTabIcome}
-                      className={`${style.profileGroupBtnButton} ${
-                        displayIcome ? style.profileGroupBtnButtonActive : ""
+                      className={`${style.financicalGroupBtnButton} ${
+                        displayIcome ? style.financicalGroupBtnButtonActive : ""
                       }`}
                     >
                       {intl.formatMessage({ id: "lang_title_icome" })}
                     </button>
                     <button
                       onClick={showTabBalance}
-                      className={`${style.profileGroupBtnButton} ${
-                        displayBalance ? style.profileGroupBtnButtonActive : ""
+                      className={`${style.financicalGroupBtnButton} ${
+                        displayBalance ? style.financicalGroupBtnButtonActive : ""
                       }`}
                     >
                       {intl.formatMessage({ id: "lang_title_balance" })}
                     </button>
                     <button
                       onClick={showTabCash}
-                      className={`${style.profileGroupBtnButton} ${
-                        displayCash ? style.profileGroupBtnButtonActive : ""
+                      className={`${style.financicalGroupBtnButton} ${
+                        displayCash ? style.financicalGroupBtnButtonActive : ""
                       }`}
                     >
                       {intl.formatMessage({ id: "lang_title_cash_low" })}

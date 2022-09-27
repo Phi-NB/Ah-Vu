@@ -10,7 +10,6 @@ interface ITable {
 
 export default function ProfileTable(props: ITable) {
   const data = useMemo(() => props.props, []);
-  console.log(data);
   const convertText = (value: string) => {
     let c = value.toString().replace(/_/g, " ");
     if (c === "next5 years per annum" || c === "past5 years per annum") {

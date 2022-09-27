@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import style from "./financial.module.css";
 import Paper from "@mui/material/Paper";
@@ -10,6 +10,7 @@ import {
   TableTreeColumn,
 } from "@devexpress/dx-react-grid-material-ui";
 import { useIntl } from "react-intl";
+import { Tooltip } from "@mui/material";
 import { getDataTable } from "./convertDataBalance";
 import { getDataColumns } from "./columnBalance";
 import NoData from "./NoData"
@@ -23,10 +24,22 @@ export interface IBalanceSheetProps {
   queryString: string;
 }
 
+interface TableCellProps {
+  value: any;
+  row: any;
+  column: {
+    name: string;
+  };
+}
+
 export function BalanceSheet(props: IBalanceSheetProps) {
   const { data, titleTable, queryString } = props;
   const [expandedRowIds, setExpandenRowIds] = useState<any>([]);
   const intl = useIntl();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const getChildRows = (row: any, rootRows: any) => {
     return row ? row.items : rootRows;
@@ -61,12 +74,38 @@ export function BalanceSheet(props: IBalanceSheetProps) {
       return <NoData />;
     }
   }
+  const Cell = ({ row, column, ...props }: TableCellProps) => {
+    return (
+      <Tooltip
+        componentsProps={{
+          tooltip: {
+            sx: {
+              fontSize: "14px",
+              padding: "8px",
+              bgcolor: "#363C4E",
+              color: "#EEF0F1",
+              border: "1px solid #363C4E",
+            },
+          },
+        }}
+        title={props.value}
+      >
+        {mounted ? (
+          <div className="cell">
+            <Table.Cell {...props} row={row} column={column} />
+          </div>
+        ) : (
+          <Table.Cell {...props} row={row} column={column} />
+        )}
+      </Tooltip>
+    );
+  };
   return (
     <div>
-      <div className={style.profileInfoTable}>
-        <div className={style.profileInfo}>
-          <div className={style.profileInfoIncome}>{titleTable}</div>
-          <div className={style.profileInfoFinancial}>
+      <div className={style.financicalInfoTable}>
+        <div className={style.financicalInfo}>
+          <div className={style.financicalInfoIncome}>{titleTable}</div>
+          <div className={style.financicalInfoFinancial}>
             <span>{intl.formatMessage({ id: "lang_currency_in" })}</span>
             {data?.profile.financial_currency}
             <span>{intl.formatMessage({ id: "lang_all_numbers" })}</span>
@@ -74,7 +113,7 @@ export function BalanceSheet(props: IBalanceSheetProps) {
         </div>
         {allOpen ? (
           <button
-            className={style.profileInfoTableBtnEpCo}
+            className={style.financicalInfoTableBtnEpCo}
             onClick={collapseAll}
           >
             <Image src="/ic-collapse.png" width={12} height={12} />
@@ -83,7 +122,10 @@ export function BalanceSheet(props: IBalanceSheetProps) {
             </span>
           </button>
         ) : (
-          <button className={style.profileInfoTableBtnEpCo} onClick={expandAll}>
+          <button
+            className={style.financicalInfoTableBtnEpCo}
+            onClick={expandAll}
+          >
             <Image src="/ic-expand.png" width={12} height={12} />
             <span style={{ marginLeft: 12 }}>
               {intl.formatMessage({ id: "lang_expand" })}
@@ -103,7 +145,7 @@ export function BalanceSheet(props: IBalanceSheetProps) {
           <CustomTreeData getChildRows={getChildRows} />
           <Table columnExtensions={tableColumnExtensions} />
           <TableHeaderRow />
-          <TableTreeColumn for="breakDown" />
+          <TableTreeColumn cellComponent={Cell} for="breakDown" />
         </Grid>
       </Paper>
     </div>

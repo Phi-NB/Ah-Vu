@@ -1,4 +1,4 @@
-.profileGroupBtnButton {
+.financicalGroupBtnButton {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -12,26 +12,26 @@
   margin-right: 8px;
 }
 
-.profileGroupBtnButtonActive {
+.financicalGroupBtnButtonActive {
   background-color: var(--ascend-default);
 }
 
-.profileGroupBtnButton:hover {
+.financicalGroupBtnButton:hover {
   background-color: var(--ascend-default);
 }
 
-.profileTool{
+.financicalTool{
   display: flex;
   justify-content: space-between;
   margin-bottom: 24px;
   height: 24px;
 }
 
-.profileGroupBtn {
+.financicalGroupBtn {
   display: flex;
 }
 
-.profileSelect {
+.financicalSelect {
   width: 120px;
   padding: 4px 8px;
   outline: none;
@@ -39,40 +39,40 @@
   border: 1px solid var(--border);
 }
 
-.profileSelectOption {
+.financicalSelectOption {
   padding: 8px 66px;
 }
 
-.profileInfoTable {
+.financicalInfoTable {
   display: flex;
   font-family: 'Roboto';
   margin-bottom: 8px;
   justify-content: space-between;
 }
 
-.profileInfoFinancial {
+.financicalInfoFinancial {
   margin-left: 16px;
   font-size: 12px;
   color: var(--secondary-dark);
 }
 
-.profileInfoFinancial span {
+.financicalInfoFinancial span {
   font-size: 12px;
   color: var(--secondary-dark);
 
 }
 
-.profileInfo {
+.financicalInfo {
   display: flex;
   align-items: center;
 }
 
-.profileInfoIncome {
+.financicalInfoIncome {
   font-size: 16px;
   color: var(--secondary-dark);
 }
 
-.profileInfoTableBtnEpCo {
+.financicalInfoTableBtnEpCo {
   border: none;
   background: var(--primary-dark);
   color: var(--secondary-default);

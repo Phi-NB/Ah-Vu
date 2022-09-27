@@ -20,5 +20,17 @@
     "lang_title_cash_low": "CASH FLOW",
     "lang_select_annual": "Annual",
     "lang_select_quarterly": "Quarterly",
-    "lang_no_data": "No Data"
+    "lang_no_data": "No Data",
+    "lang_ttm": "TTM",
+    "lang_breakDown": "BREAK DOWN",
+
+
+
+    "lang_majors_holdder": "MAJOR HOLDERS",
+    "lang_insider_roster": "INSIDER ROSTER",
+    "lang_insider_transaction": "INSIDER TRANSACTIONS",
+    "lang_value": "Value"
+
+
+
 }
