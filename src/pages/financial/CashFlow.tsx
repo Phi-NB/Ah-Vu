@@ -104,10 +104,33 @@ export function CashFlow(props: ICashFlowProps) {
             <Table.Cell {...props} row={row} column={column} />
           </div>
         ) : (
-          <Table.Cell {...props} row={row} column={column} />
+          <Table.Cell />
         )}
       </Tooltip>
     );
+  };
+
+  const deleteItem = (arr: any) => {
+    return arr
+      .filter(
+        (item: any) =>
+          item.reported_time_display0 !== "--" &&
+          item.reported_time_display1 !== "--" &&
+          item.reported_time_display2 !== "--" &&
+          item.reported_time_display3 !== "--"
+      )
+      .map((item: any) => {
+        if (
+          item.reported_time_display0 !== "--" &&
+          item.reported_time_display1 !== "--" &&
+          item.reported_time_display2 !== "--" &&
+          item.reported_time_display3 !== "--" &&
+          item.items
+        ) {
+          return { ...item, items: deleteItem(item.items) };
+        }
+        return item;
+      });
   };
   return (
     <div>
@@ -144,7 +167,7 @@ export function CashFlow(props: ICashFlowProps) {
       </div>
       <Paper>
         <Grid
-          rows={getDataTable(data, queryString)}
+          rows={deleteItem(getDataTable(data, queryString))}
           columns={getDataColumns(data)}
         >
           <TreeDataState

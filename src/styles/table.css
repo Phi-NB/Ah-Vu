@@ -308,6 +308,6 @@ table td {
 
 .MuiTooltip-popper.MuiTooltip-popperInteractive	.MuiTooltip-tooltip {
   margin-left: 100px;
-  margin-top: 1px;
+  margin-top: 10px;
   max-width: 100%;
 }
