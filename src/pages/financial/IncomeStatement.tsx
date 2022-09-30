@@ -118,28 +118,38 @@ export function IncomeStatement(props: IIncomeStatementProps) {
 
   const deleteItem = (arr: any) => {
     return arr
-      .filter(
-        (item: any) =>
-          item.reported_time_display0 !== "--" &&
-          item.reported_time_display1 !== "--" &&
-          item.reported_time_display2 !== "--" &&
-          item.reported_time_display3 !== "--"
-      )
+      .filter((item: any) => {
+        if (
+          item.reported_time_display0 === "--" &&
+          item.reported_time_display1 === "--" &&
+          item.reported_time_display2 === "--" &&
+          item.reported_time_display3 === "--" &&
+          item.ttm === "--"
+        ) {
+          return false;
+        }
+        return true;
+      })
       .map((item: any) => {
         if (
-          item.reported_time_display0 !== "--" &&
-          item.reported_time_display1 !== "--" &&
-          item.reported_time_display2 !== "--" &&
-          item.reported_time_display3 !== "--" &&
+          (item.reported_time_display0 !== "--" ||
+            item.reported_time_display1 !== "--" ||
+            item.reported_time_display2 !== "--" ||
+            item.reported_time_display3 !== "--" ||
+            item.ttm !== "--") &&
           item.items
         ) {
           return { ...item, items: deleteItem(item.items) };
         }
         return item;
+      })
+      .map((item: any) => {
+        if (item.items && item.items.length === 0) {
+          delete item.items;
+        }
+        return item;
       });
   };
-
-  console.log(getDataTable(data, queryString));
 
   return (
     <div>
@@ -157,7 +167,7 @@ export function IncomeStatement(props: IIncomeStatementProps) {
             className={style.financicalInfoTableBtnEpCo}
             onClick={collapseAll}
           >
-            <Image src="/ic-collapse.png" width={12} height={12} />
+            <Image src="/ic-collapse.png" width={12} height={12} alt="" />
             <span style={{ marginLeft: 12 }}>
               {intl.formatMessage({ id: "lang_collapse" })}
             </span>
@@ -167,7 +177,7 @@ export function IncomeStatement(props: IIncomeStatementProps) {
             className={style.financicalInfoTableBtnEpCo}
             onClick={expandAll}
           >
-            <Image src="/ic-expand.png" width={12} height={12} />
+            <Image src="/ic-expand.png" width={12} height={12} alt="" />
             <span style={{ marginLeft: 12 }}>
               {intl.formatMessage({ id: "lang_expand" })}
             </span>
@@ -192,4 +202,14 @@ export function IncomeStatement(props: IIncomeStatementProps) {
       </Paper>
     </div>
   );
+}
+
+interface IArrayDataTable {
+  reported_time_display0: string;
+  reported_time_display1: string;
+  reported_time_display2: string;
+  reported_time_display3: string;
+  ttm: string;
+  breakDown: string;
+  items?: Array<IArrayDataTable>;
 }

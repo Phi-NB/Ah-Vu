@@ -112,26 +112,34 @@ export function CashFlow(props: ICashFlowProps) {
 
   const deleteItem = (arr: any) => {
     return arr
-      .filter(
-        (item: any) =>
-          item.reported_time_display0 !== "--" &&
-          item.reported_time_display1 !== "--" &&
-          item.reported_time_display2 !== "--" &&
-          item.reported_time_display3 !== "--"
-      )
+      .filter((item: any) => {
+        if (
+          item.reported_time_display0 === "--" &&
+          item.reported_time_display1 === "--" &&
+          item.reported_time_display2 === "--" &&
+          item.reported_time_display3 === "--" &&
+          item.ttm === "--"
+        ) {
+          return false;
+        }
+        return true;
+      })
       .map((item: any) => {
         if (
-          item.reported_time_display0 !== "--" &&
-          item.reported_time_display1 !== "--" &&
-          item.reported_time_display2 !== "--" &&
-          item.reported_time_display3 !== "--" &&
-          item.items
+          (item.reported_time_display0 !== "--" ||
+            item.reported_time_display1 !== "--" ||
+            item.reported_time_display2 !== "--" ||
+            item.reported_time_display3 !== "--" ||
+            item.ttm !== "--") &&
+          (item.items &&
+          item.items.length !== 0)
         ) {
           return { ...item, items: deleteItem(item.items) };
         }
         return item;
       });
   };
+
   return (
     <div>
       <div className={style.financicalInfoTable}>
@@ -148,7 +156,7 @@ export function CashFlow(props: ICashFlowProps) {
             className={style.financicalInfoTableBtnEpCo}
             onClick={collapseAll}
           >
-            <Image src="/ic-collapse.png" width={12} height={12} />
+            <Image src="/ic-collapse.png" width={12} height={12} alt="" />
             <span style={{ marginLeft: 12 }}>
               {intl.formatMessage({ id: "lang_collapse" })}
             </span>
@@ -158,7 +166,7 @@ export function CashFlow(props: ICashFlowProps) {
             className={style.financicalInfoTableBtnEpCo}
             onClick={expandAll}
           >
-            <Image src="/ic-expand.png" width={12} height={12} />
+            <Image src="/ic-expand.png" width={12} height={12} alt="" />
             <span style={{ marginLeft: 12 }}>
               {intl.formatMessage({ id: "lang_expand" })}
             </span>

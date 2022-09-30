@@ -13,7 +13,8 @@ import { useIntl } from "react-intl";
 import { Tooltip } from "@mui/material";
 import { getDataTable } from "./convertDataBalance";
 import { getDataColumns } from "./columnBalance";
-import NoData from "./NoData"
+import NoData from "./NoData";
+import { debug } from "console";
 
 export interface IBalanceSheetProps {
   data: {
@@ -68,9 +69,7 @@ export function BalanceSheet(props: IBalanceSheetProps) {
       return <NoData />;
     }
   } else {
-    if (
-      data.financials.balance_sheet_quarterly.length === 0
-    ) {
+    if (data.financials.balance_sheet_quarterly.length === 0) {
       return <NoData />;
     }
   }
@@ -103,19 +102,24 @@ export function BalanceSheet(props: IBalanceSheetProps) {
 
   const deleteItem = (arr: any) => {
     return arr
-      .filter(
-        (item: any) =>
-          item.reported_time_display0 !== "--" &&
-          item.reported_time_display1 !== "--" &&
-          item.reported_time_display2 !== "--" &&
-          item.reported_time_display3 !== "--"
-      )
+      .filter((item: any) => {
+        if (
+          item.reported_time_display0 === "--" &&
+          item.reported_time_display1 === "--" &&
+          item.reported_time_display2 === "--" &&
+          item.reported_time_display3 === "--"
+        ) {
+          return false;
+        }
+        return true;
+      })
       .map((item: any) => {
         if (
-          item.reported_time_display0 !== "--" &&
-          item.reported_time_display1 !== "--" &&
-          item.reported_time_display2 !== "--" &&
-          item.reported_time_display3 !== "--" &&
+          (item.reported_time_display0 !== "--" ||
+            item.reported_time_display1 !== "--" ||
+            item.reported_time_display2 !== "--" ||
+            item.reported_time_display3 !== "--"
+          ) &&
           item.items
         ) {
           return { ...item, items: deleteItem(item.items) };
@@ -123,6 +127,7 @@ export function BalanceSheet(props: IBalanceSheetProps) {
         return item;
       });
   };
+
   return (
     <div>
       <div className={style.financicalInfoTable}>

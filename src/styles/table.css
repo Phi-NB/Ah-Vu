@@ -311,3 +311,150 @@ table td {
   margin-top: 10px;
   max-width: 100%;
 }
+
+
+
+
+/* Holder */
+
+.table-holder table tr td {
+  font-weight: 700;
+  text-align: right;
+}
+.table-holder table tr td:first-child {
+  font-weight: 400;
+  text-align: left;
+}
+.top_holder table tr {
+  width: 100%;
+}
+
+.top_holder table tr td:nth-child(1) {
+  width: 32%;
+}
+.top_holder table tr th:nth-child(1) {
+  width: 32%;
+}
+
+.top_holder table tr td:nth-child(2) {
+  width: 16%;
+}
+.top_holder table tr th:nth-child(2) {
+  width: 16%;
+}
+.top_holder table tr td:nth-child(3) {
+  width: 16%;
+}
+.top_holder table tr th:nth-child(3) {
+  width: 16%;
+}
+.top_holder table tr td:nth-child(4) {
+  width: 16%;
+}
+.top_holder table tr th:nth-child(4) {
+  width: 16%;
+}
+.top_holder table tr td:nth-child(5) {
+  width: 20%;
+}
+.top_holder table tr th:nth-child(5) {
+  width: 20%;
+}
+
+
+
+
+.insider_roster table tr {
+  width: 100%;
+}
+
+.insider_roster table tr td:nth-child(1) {
+  width: 24%;
+}
+.insider_roster table tr th:nth-child(1) {
+  width: 24%;
+}
+
+.insider_roster table tr td:nth-child(2) {
+  width: 26%;
+}
+.insider_roster table tr th:nth-child(2) {
+  width: 26%;
+}
+.insider_roster table tr td:nth-child(3) {
+  width: 12%;
+}
+.insider_roster table tr th:nth-child(3) {
+  width: 12%;
+}
+.insider_roster table tr td:nth-child(4) {
+  width: 38%;
+}
+.insider_roster table tr th:nth-child(4) {
+  width: 38%;
+}
+
+
+
+
+.insider_transaction table tr {
+  width: 100%;
+}
+
+.insider_transaction table tr td:nth-child(1) {
+  width: 34%;
+}
+.insider_transaction table tr th:nth-child(1) {
+  width: 34%;
+}
+
+.insider_transaction table tr td:nth-child(2) {
+  width: 30%;
+}
+.insider_transaction table tr th:nth-child(2) {
+  width: 30%;
+}
+.insider_transaction table tr td:nth-child(3) {
+  width: 8%;
+}
+.insider_transaction table tr th:nth-child(3) {
+  width: 8%;
+}
+.insider_transaction table tr td:nth-child(4) {
+  width: 8%;
+}
+.insider_transaction table tr th:nth-child(4) {
+  width: 8%;
+}
+.insider_transaction table tr td:nth-child(5) {
+  width: 12%;
+}
+.insider_transaction table tr th:nth-child(5) {
+  width: 12%;
+}
+.insider_transaction table tr td:nth-child(6) {
+  width: 8%;
+}
+.insider_transaction table tr th:nth-child(6) {
+  width: 8%;
+}
+
+
+
+
+.table-description table tr th:nth-child(1) {
+  width: calc(100% - 56%);
+}
+.table-description table tr td:nth-child(1) {
+  width: calc(100% - 56%);
+}
+
+.table-description table tr th:nth-child(2) {
+  text-align: left;
+}
+.table-description table tr td:nth-child(2) {
+  text-align: left;
+}
+
+
+

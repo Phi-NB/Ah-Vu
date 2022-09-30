@@ -8,8 +8,11 @@ import Footer from "components/Footer/Footer";
 import Something from "components/Something/Something";
 import path from "path";
 import fsPromises from "fs/promises";
-import style from "./holder.module.css";
 import { useIntl } from "react-intl";
+import style from "./holder.module.css";
+import InsiderRoster from "./InsiderRoster";
+import MajorHolder from "./MajorHolder";
+import InsiderTransaction from "./InsiderTransaction";
 
 type HolderProps = {
   data: LooseObject;
@@ -31,7 +34,6 @@ const Holder: NextPage<HolderProps> = ({ data = { text: "Holder" } }) => {
     useState<boolean>(false);
   const [displayInsiderTransaction, setDisplayInsiderTransaction] =
     useState<boolean>(false);
-  const [dataSelect, setDataSelect] = useState<string>("Annual");
 
   const showTabMajorHolder = () => {
     setDisplayMajorHolder(true);
@@ -48,6 +50,7 @@ const Holder: NextPage<HolderProps> = ({ data = { text: "Holder" } }) => {
     setDisplayInsiderRoster(false);
     setDisplayInsiderTransaction(true);
   };
+  console.log(data[obj].holders);
 
   return (
     <React.Fragment>
@@ -91,6 +94,13 @@ const Holder: NextPage<HolderProps> = ({ data = { text: "Holder" } }) => {
                     </button>
                   </div>
                 </div>
+                {displayMajorHolder && <MajorHolder data={data[obj].holders} />}
+                {displayInsiderRoster && (
+                  <InsiderRoster data={data[obj].holders.insider_roster} />
+                )}
+                {displayInsiderTransaction && (
+                  <InsiderTransaction data={data[obj].holders} />
+                )}
               </div>
             </div>
           </div>

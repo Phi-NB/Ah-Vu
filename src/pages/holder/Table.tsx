@@ -1,39 +1,32 @@
 import React, { Fragment, useMemo } from "react";
 import { useTable } from "react-table";
-import { COLUMNS } from "./columnTableDescription";
-import { obj } from "api/api";
 import ReactTooltip from "react-tooltip";
 
-export interface ITableDescriptionProps {
-  props: Array<any>;
+export interface ITableProps {
+  data: Array<any>,
+  columns: Array<any>
+  classTable?: string
 }
 
-export default function TableDescription(props: ITableDescriptionProps) {
-  const columns = useMemo(() => COLUMNS, []);
-  const data = useMemo(() => props.props, []);
-
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    // footerGroups,
-    rows,
-    prepareRow,
-  } = useTable({
-    columns,
-    data,
-  });
-
+export default function Table (props: ITableProps) {
+  const columns = useMemo(() => props.columns, [props.columns]);
+  const data = useMemo(() => props.data, [props.data]);
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
+    useTable({
+      columns,
+      data,
+    });
   return (
     <Fragment>
-      <div className="table-container">
+      <div className={`table-container table-holder ${ props.classTable ? props.classTable: '' } `}>
         <ReactTooltip place="bottom" effect="solid" />
         <table {...getTableProps()}>
           <thead>
-            {headerGroups.map((headerGroup) => (
-              <tr {...headerGroup.getHeaderGroupProps()}>
-                {headerGroup.headers.map((column) => (
+            {headerGroups.map((headerGroup, index) => (
+              <tr key={index} {...headerGroup.getHeaderGroupProps()}>
+                {headerGroup.headers.map((column, index) => (
                   <th
+                    key={index}
                     {...column.getHeaderProps([
                       {
                         className: column.headerClassName,
@@ -47,14 +40,15 @@ export default function TableDescription(props: ITableDescriptionProps) {
             ))}
           </thead>
           <tbody {...getTableBodyProps()}>
-            {rows.map((row) => {
+            {rows.map((row, index) => {
               prepareRow(row);
 
               return (
-                <tr {...row.getRowProps()}>
-                  {row.cells.map((cell) => {
+                <tr key={index} {...row.getRowProps()}>
+                  {row.cells.map((cell, index) => {
                     return (
                       <td
+                        key={index}
                         {...cell.getCellProps([
                           { className: cell.cellClassName },
                         ])}

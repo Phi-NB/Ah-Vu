@@ -29,8 +29,28 @@
     "lang_majors_holdder": "MAJOR HOLDERS",
     "lang_insider_roster": "INSIDER ROSTER",
     "lang_insider_transaction": "INSIDER TRANSACTIONS",
-    "lang_value": "Value"
+    "lang_value": "Value",
 
+
+    "lang_top_institutional_holders": "Top Institutional Holders",
+    "lang_text_holders": "Holders",
+    "lang_text_shares": "Shares",
+    "lang_text_date_reported": "Date Reported",
+    "lang_text_out": "% Out",
+    "lang_top_mutual_fund_holders": "Top Mutual Fund Holders",
+    "lang_individual_or_entity": "Individual or Entity",
+    "lang_most_recent_transaction": "Most Recent Transaction",
+    "lang_date": "date",
+    "lang_shares_owned_as_of_transaction_date": "Shares Owned as of Transaction Date",
+    "lang_insider_purchases_last_6_months": "Insider Purchases Last 6 Months",
+    "lang_insider": "Insider",
+    "lang_transaction": "Transaction",
+    "lang_type": "Type",
+    "lang_trans": "Trans",
+    "lang_net_institutional_purchases_prior_quarter_to_latest_quarter": "Net Institutional Purchases Prior Quarter to Latest Quarter"
+
+
+    
 
 
 }

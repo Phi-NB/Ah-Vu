@@ -20,7 +20,7 @@
   background-color: var(--ascend-default);
 }
 
-.holderTool{
+.holderTool {
   display: flex;
   justify-content: space-between;
   margin-bottom: 24px;
@@ -29,4 +29,52 @@
 
 .holderGroupBtn {
   display: flex;
+}
+
+.titleTable,
+.titleNameTable {
+  padding: 8px;
+}
+
+.titleTable p,
+.titleNameTable p {
+  color: var(--secondary-dark);
+  font-size: 16px;
+  font-weight: 400;
+  font-family: "Roboto";
+  margin: 0;
+}
+
+.titleNameTable p {
+  font-size: 14px;
+}
+
+.firstTableEmpty {
+  background-color: var(--primary-default);
+  font-family: "Roboto";
+  padding: 8px;
+  margin-bottom: 1px;
+}
+.firstTableEmpty p {
+  color: var(--secondary-dark);
+  font-weight: 400;
+  font-size: 14px;
+  margin: 0;
+}
+
+.columnFistTableInsider {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  margin-top: 2px;
+}
+
+.columnFistTableInsider p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.columnFistTableInsider p:first-child {
+  color: #3b9dff;
 }
