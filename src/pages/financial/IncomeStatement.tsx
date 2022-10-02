@@ -14,6 +14,7 @@ import { Tooltip } from "@mui/material";
 import { getDataTable } from "./convertDataIncome";
 import { getDataColumns } from "./columnIncome";
 import NoData from "./NoData";
+import {deleteItemNullIcomeCashFlow} from './../../utility/index'
 
 export interface IIncomeStatementProps {
   data: {
@@ -106,7 +107,10 @@ export function IncomeStatement(props: IIncomeStatementProps) {
         title={props.value}
       >
         {mounted ? (
-          <div className="cell">
+          <div
+            className="cell"
+    
+          >
             <Table.Cell {...props} row={row} column={column} />
           </div>
         ) : (
@@ -114,41 +118,6 @@ export function IncomeStatement(props: IIncomeStatementProps) {
         )}
       </Tooltip>
     );
-  };
-
-  const deleteItem = (arr: any) => {
-    return arr
-      .filter((item: any) => {
-        if (
-          item.reported_time_display0 === "--" &&
-          item.reported_time_display1 === "--" &&
-          item.reported_time_display2 === "--" &&
-          item.reported_time_display3 === "--" &&
-          item.ttm === "--"
-        ) {
-          return false;
-        }
-        return true;
-      })
-      .map((item: any) => {
-        if (
-          (item.reported_time_display0 !== "--" ||
-            item.reported_time_display1 !== "--" ||
-            item.reported_time_display2 !== "--" ||
-            item.reported_time_display3 !== "--" ||
-            item.ttm !== "--") &&
-          item.items
-        ) {
-          return { ...item, items: deleteItem(item.items) };
-        }
-        return item;
-      })
-      .map((item: any) => {
-        if (item.items && item.items.length === 0) {
-          delete item.items;
-        }
-        return item;
-      });
   };
 
   return (
@@ -187,7 +156,7 @@ export function IncomeStatement(props: IIncomeStatementProps) {
       <Paper>
         <Grid
           component={Paper}
-          rows={deleteItem(getDataTable(data, queryString))}
+          rows={deleteItemNullIcomeCashFlow(getDataTable(data, queryString))}
           columns={getDataColumns(data)}
         >
           <TreeDataState

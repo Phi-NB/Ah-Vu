@@ -1,9 +1,6 @@
-export const getDataColumns = (propsData: any) => {
-  const convertDate = (value: string) => {
-    const [year, month, day] = value.split("-");
+import { convertDate } from "./../../utility/index";
 
-    return [month, day, year].join("/");
-  };
+export const getDataColumns = (propsData: any) => {
   const data = propsData.financials.balance_sheet;
   return [
     {

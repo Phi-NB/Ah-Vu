@@ -1,11 +1,6 @@
-import data from '../../lang/en.json';
+import { convertDate } from "./../../utility/index";
 
 export const getDataColumns = (propsData: any) => {
-  const convertDate = (value: string) => {
-    const [year, month, day] = value.split("-");
-
-    return [month, day, year].join("/");
-  };
   const data = propsData.financials.income;
   return [
     {

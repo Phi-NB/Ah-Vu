@@ -199,7 +199,7 @@ table td {
 }
 
 .cell {
-  white-space: nowrap; 
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -211,7 +211,7 @@ table td {
 
 .TableTreeContent-content.css-qg6j3g {
   display: inline;
-  white-space: nowrap; 
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -294,10 +294,11 @@ table td {
   width: 120px;
 }
 .MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation1.MuiPaper-root.MuiMenu-paper.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation8.MuiPopover-paper.css-1poimk-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper {
-  top: 40px!important;
+  top: 40px !important;
   background: var(--primary-light);
 }
-.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation1.MuiPaper-root.MuiMenu-paper.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation8.MuiPopover-paper.css-1poimk-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper li {
+.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation1.MuiPaper-root.MuiMenu-paper.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation8.MuiPopover-paper.css-1poimk-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper
+  li {
   font-size: 14px;
   padding: 2px 8px;
 }
@@ -306,14 +307,11 @@ table td {
   width: fit-content;
 }
 
-.MuiTooltip-popper.MuiTooltip-popperInteractive	.MuiTooltip-tooltip {
+.MuiTooltip-popper.MuiTooltip-popperInteractive .MuiTooltip-tooltip {
   margin-left: 100px;
   margin-top: 10px;
   max-width: 100%;
 }
-
-
-
 
 /* Holder */
 
@@ -361,9 +359,6 @@ table td {
   width: 20%;
 }
 
-
-
-
 .insider_roster table tr {
   width: 100%;
 }
@@ -393,9 +388,6 @@ table td {
 .insider_roster table tr th:nth-child(4) {
   width: 38%;
 }
-
-
-
 
 .insider_transaction table tr {
   width: 100%;
@@ -439,9 +431,6 @@ table td {
   width: 8%;
 }
 
-
-
-
 .table-description table tr th:nth-child(1) {
   width: calc(100% - 56%);
 }
@@ -456,5 +445,5 @@ table td {
   text-align: left;
 }
 
-
+/* tooltip */
 

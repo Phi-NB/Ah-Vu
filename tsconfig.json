@@ -24,7 +24,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "src/pages/holder/insider-roster/columnTable.ts"  ],
   "exclude": [
     "node_modules"
   ]

@@ -14,6 +14,7 @@ import { Tooltip } from "@mui/material";
 import { getDataTable } from "./convertDataCashFlow";
 import { getDataColumns } from "./columnIncome";
 import NoData from "./NoData";
+import { deleteItemNullIcomeCashFlow } from "./../../utility/index";
 
 export interface ICashFlowProps {
   data: {
@@ -34,6 +35,14 @@ interface TableCellProps {
   row: any;
   column: {
     name: string;
+  };
+  tableRow: {
+    key: string;
+    type: symbol;
+  };
+  tableColumn: {
+    key: string;
+    type: symbol;
   };
 }
 
@@ -110,36 +119,6 @@ export function CashFlow(props: ICashFlowProps) {
     );
   };
 
-  const deleteItem = (arr: any) => {
-    return arr
-      .filter((item: any) => {
-        if (
-          item.reported_time_display0 === "--" &&
-          item.reported_time_display1 === "--" &&
-          item.reported_time_display2 === "--" &&
-          item.reported_time_display3 === "--" &&
-          item.ttm === "--"
-        ) {
-          return false;
-        }
-        return true;
-      })
-      .map((item: any) => {
-        if (
-          (item.reported_time_display0 !== "--" ||
-            item.reported_time_display1 !== "--" ||
-            item.reported_time_display2 !== "--" ||
-            item.reported_time_display3 !== "--" ||
-            item.ttm !== "--") &&
-          (item.items &&
-          item.items.length !== 0)
-        ) {
-          return { ...item, items: deleteItem(item.items) };
-        }
-        return item;
-      });
-  };
-
   return (
     <div>
       <div className={style.financicalInfoTable}>
@@ -175,7 +154,7 @@ export function CashFlow(props: ICashFlowProps) {
       </div>
       <Paper>
         <Grid
-          rows={deleteItem(getDataTable(data, queryString))}
+          rows={deleteItemNullIcomeCashFlow(getDataTable(data, queryString))}
           columns={getDataColumns(data)}
         >
           <TreeDataState

@@ -13326,8 +13326,6 @@ li[role="menuitem"] {
   margin-top: 5px !important;
   color: var(--secondary-default);
   font-weight: normal;
-  letter-spacing: -.1px;
-  pointer-events: none;
   transition: opacity 0.3s;
   z-index: 10000000;
   font-family: Roboto;

@@ -1,36 +1,6 @@
 import lang from "../../../lang/en.json";
-
-const timeConverter = (date) => {
-  var a = new Date(date);
-  var months = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
-  var year = a.getFullYear();
-  var month = months[a.getMonth()];
-  var date = a.getDate();
-  var time = month + " " + date + ", " + year + " ";
-  return time;
-};
-
-const convertPercent = (percent) => {
-  return percent = (percent * 100).toFixed(2) + " %";
-}
-
-
-const convertValueNumber = (value) => {
-  return value.toLocaleString();
-};
+import { Tooltip } from "@mui/material";
+import { timeConverter, convertValueNumber, convertPercent } from "utility";
 
 const COLUMNS = [
   {
@@ -38,9 +8,24 @@ const COLUMNS = [
     headerClassName: "",
     accessor: "holder",
     Cell: (row) => (
-      <div className=" mw-paragrap limit-length ">
-        {row.value ? row.value : "--"}
-      </div>
+      <Tooltip
+        componentsProps={{
+          tooltip: {
+            sx: {
+              fontSize: "14px",
+              padding: "8px",
+              bgcolor: "#363C4E",
+              color: "#EEF0F1",
+              border: "1px solid #363C4E",
+            },
+          },
+        }}
+        title={row.value ? row.value : "--"}
+      >
+        <div className=" mw-paragrap limit-length ">
+          {row.value ? row.value : "--"}
+        </div>
+      </Tooltip>
     ),
   },
   {
@@ -48,9 +33,24 @@ const COLUMNS = [
     headerClassName: "",
     accessor: "shares",
     Cell: (row) => (
-      <div className=" mw-paragrap limit-length">
-        {row.value ? convertValueNumber(row.value) : "--"}
-      </div>
+      <Tooltip
+        componentsProps={{
+          tooltip: {
+            sx: {
+              fontSize: "14px",
+              padding: "8px",
+              bgcolor: "#363C4E",
+              color: "#EEF0F1",
+              border: "1px solid #363C4E",
+            },
+          },
+        }}
+        title={row.value ? convertValueNumber(row.value) : "--"}
+      >
+        <div className=" mw-paragrap limit-length">
+          {row.value ? convertValueNumber(row.value) : "--"}
+        </div>
+      </Tooltip>
     ),
   },
   {
@@ -58,9 +58,24 @@ const COLUMNS = [
     headerClassName: "",
     accessor: "date_reported",
     Cell: (row) => (
-      <div className=" mw-paragrap limit-length">
-        {row.value ? timeConverter(row.value) : "--"}
-      </div>
+      <Tooltip
+        componentsProps={{
+          tooltip: {
+            sx: {
+              fontSize: "14px",
+              padding: "8px",
+              bgcolor: "#363C4E",
+              color: "#EEF0F1",
+              border: "1px solid #363C4E",
+            },
+          },
+        }}
+        title={row.value ? timeConverter(row.value) : "--"}
+      >
+        <div className=" mw-paragrap limit-length">
+          {row.value ? timeConverter(row.value) : "--"}
+        </div>
+      </Tooltip>
     ),
   },
   {
@@ -68,9 +83,24 @@ const COLUMNS = [
     headerClassName: "",
     accessor: "out",
     Cell: (row) => (
-      <div className=" mw-paragrap limit-length">
-        {row.value ? convertPercent(row.value) : "--"}
-      </div>
+      <Tooltip
+        componentsProps={{
+          tooltip: {
+            sx: {
+              fontSize: "14px",
+              padding: "8px",
+              bgcolor: "#363C4E",
+              color: "#EEF0F1",
+              border: "1px solid #363C4E",
+            },
+          },
+        }}
+        title={row.value ? convertPercent(row.value) : "--"}
+      >
+        <div className=" mw-paragrap limit-length">
+          {row.value ? convertPercent(row.value) : "--"}
+        </div>
+      </Tooltip>
     ),
   },
   {
@@ -78,11 +108,26 @@ const COLUMNS = [
     headerClassName: "",
     accessor: "value",
     Cell: (row) => (
-      <div className=" mw-paragrap limit-length">
-        {row.value ? convertValueNumber(row.value) : "--"}
-      </div>
+      <Tooltip
+        componentsProps={{
+          tooltip: {
+            sx: {
+              fontSize: "14px",
+              padding: "8px",
+              bgcolor: "#363C4E",
+              color: "#EEF0F1",
+              border: "1px solid #363C4E",
+            },
+          },
+        }}
+        title={row.value ? convertValueNumber(row.value) : "--"}
+      >
+        <div className=" mw-paragrap limit-length">
+          {row.value ? convertValueNumber(row.value) : "--"}
+        </div>
+      </Tooltip>
     ),
   },
 ];
 
-export default COLUMNS
+export default COLUMNS;

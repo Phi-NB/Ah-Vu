@@ -1,14 +1,13 @@
-import React, { Fragment, useMemo } from "react";
+import React, { Fragment, useMemo, useState } from "react";
 import { useTable } from "react-table";
-import ReactTooltip from "react-tooltip";
-
+import { Tooltip } from "@mui/material";
 export interface ITableProps {
-  data: Array<any>,
-  columns: Array<any>
-  classTable?: string
+  data: Array<any>;
+  columns: Array<any>;
+  classTable?: string;
 }
 
-export default function Table (props: ITableProps) {
+export default function Table(props: ITableProps) {
   const columns = useMemo(() => props.columns, [props.columns]);
   const data = useMemo(() => props.data, [props.data]);
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
@@ -18,8 +17,11 @@ export default function Table (props: ITableProps) {
     });
   return (
     <Fragment>
-      <div className={`table-container table-holder ${ props.classTable ? props.classTable: '' } `}>
-        <ReactTooltip place="bottom" effect="solid" />
+      <div
+        className={`table-container table-holder ${
+          props.classTable ? props.classTable : ""
+        } `}
+      >
         <table {...getTableProps()}>
           <thead>
             {headerGroups.map((headerGroup, index) => (

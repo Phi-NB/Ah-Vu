@@ -1,32 +1,7 @@
 import lang from "../../../lang/en.json";
-import style from './../holder.module.css'
-
-const timeConverter = (date) => {
-  var a = new Date(date);
-  var months = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
-  var year = a.getFullYear();
-  var month = months[a.getMonth()];
-  var date = a.getDate();
-  var time = month + " " + date + ", " + year + " ";
-  return time;
-};
-
-const convertValueNumber = (value) => {
-  return value = parseInt(value).toLocaleString();
-};
+import style from "./../holder.module.css";
+import { Tooltip } from "@mui/material";
+import { timeConverter, convertValueNumber } from "utility";
 
 export const COLUMNS = [
   {
@@ -36,7 +11,9 @@ export const COLUMNS = [
       return (
         <div className={style.columnFistTableInsider}>
           <p className="mw-paragrap limit-length">
-            {props.individual_or_entity.toUpperCase()}
+            {props.individual_or_entity
+              ? props.individual_or_entity.toUpperCase()
+              : "--"}
           </p>
           <p className="mw-paragrap limit-length">{props.title}</p>
         </div>
@@ -44,9 +21,24 @@ export const COLUMNS = [
     },
     Cell: (row) => {
       return (
-        <div className="fullw100 mw-paragrap limit-length">
-          {row.value ? row.value : "--"}
-        </div>
+        <Tooltip
+          componentsProps={{
+            tooltip: {
+              sx: {
+                fontSize: "14px",
+                padding: "8px",
+                bgcolor: "#363C4E",
+                color: "#EEF0F1",
+                border: "1px solid #363C4E",
+              },
+            },
+          }}
+          title={row.value ? row.value : "--"}
+        >
+          <div className=" fullw100 mw-paragrap limit-length">
+            {row.value ? row.value : "--"}
+          </div>
+        </Tooltip>
       );
     },
   },
@@ -55,9 +47,24 @@ export const COLUMNS = [
     headerClassName: "",
     accessor: "most_recent_transaction",
     Cell: (row) => (
-      <div className=" fullw100 mw-paragrap limit-length">
-        {row.value ? row.value : "--"}
-      </div>
+      <Tooltip
+        componentsProps={{
+          tooltip: {
+            sx: {
+              fontSize: "14px",
+              padding: "8px",
+              bgcolor: "#363C4E",
+              color: "#EEF0F1",
+              border: "1px solid #363C4E",
+            },
+          },
+        }}
+        title={row.value ? row.value : "--"}
+      >
+        <div className=" fullw100 mw-paragrap limit-length">
+          {row.value ? row.value : "--"}
+        </div>
+      </Tooltip>
     ),
   },
   {
@@ -65,9 +72,24 @@ export const COLUMNS = [
     headerClassName: "",
     accessor: "date",
     Cell: (row) => (
-      <div className="fullw100 mw-paragrap limit-length">
-        {row.value ? timeConverter(row.value) : "--"}
-      </div>
+      <Tooltip
+        componentsProps={{
+          tooltip: {
+            sx: {
+              fontSize: "14px",
+              padding: "8px",
+              bgcolor: "#363C4E",
+              color: "#EEF0F1",
+              border: "1px solid #363C4E",
+            },
+          },
+        }}
+        title={row.value ? timeConverter(row.value) : "--"}
+      >
+        <div className="fullw100 mw-paragrap limit-length">
+          {row.value ? timeConverter(row.value) : "--"}
+        </div>
+      </Tooltip>
     ),
   },
   {
@@ -75,9 +97,24 @@ export const COLUMNS = [
     headerClassName: "",
     accessor: "shares_owned_as_of_transaction_date",
     Cell: (row) => (
-      <div className=" fullw100 mw-paragrap limit-length">
-        {row.value ? convertValueNumber(row.value) : "--"}
-      </div>
+      <Tooltip
+        componentsProps={{
+          tooltip: {
+            sx: {
+              fontSize: "14px",
+              padding: "8px",
+              bgcolor: "#363C4E",
+              color: "#EEF0F1",
+              border: "1px solid #363C4E",
+            },
+          },
+        }}
+        title={row.value ? convertValueNumber(row.value) : "--"}
+      >
+        <div className=" fullw100 mw-paragrap limit-length">
+          {row.value ? convertValueNumber(row.value) : "--"}
+        </div>
+      </Tooltip>
     ),
   },
 ];

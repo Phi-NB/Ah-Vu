@@ -1,6 +1,6 @@
 import lang from "../../../lang/en.json";
 import style from "./../holder.module.css";
-
+import { Tooltip } from "@mui/material";
 const COLUMNS = [
   {
     Header:
@@ -8,9 +8,24 @@ const COLUMNS = [
     headerClassName: "border-none",
     accessor: "net_institutional_purchases_prior_quarter_to_latest_quarter",
     Cell: (row) => (
-      <div className="mw-paragrap limit-length">
-        {row.value ? row.value : "--"}
-      </div>
+      <Tooltip
+        componentsProps={{
+          tooltip: {
+            sx: {
+              fontSize: "14px",
+              padding: "8px",
+              bgcolor: "#363C4E",
+              color: "#EEF0F1",
+              border: "1px solid #363C4E",
+            },
+          },
+        }}
+        title={row.value ? row.value : "--"}
+      >
+        <div className="mw-paragrap limit-length">
+          {row.value ? row.value : "--"}
+        </div>
+      </Tooltip>
     ),
   },
   {
@@ -18,12 +33,26 @@ const COLUMNS = [
     headerClassName: "border-none",
     accessor: "shares",
     Cell: (row) => (
-      <div className="mw-paragrap limit-length">
-        {row.value ? row.value : "--"}
-      </div>
+      <Tooltip
+        componentsProps={{
+          tooltip: {
+            sx: {
+              fontSize: "14px",
+              padding: "8px",
+              bgcolor: "#363C4E",
+              color: "#EEF0F1",
+              border: "1px solid #363C4E",
+            },
+          },
+        }}
+        title={row.value ? row.value : "--"}
+      >
+        <div className="mw-paragrap limit-length">
+          {row.value ? row.value : "--"}
+        </div>
+      </Tooltip>
     ),
   },
 ];
-
 
 export default COLUMNS;

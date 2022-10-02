@@ -14,7 +14,7 @@ import { Tooltip } from "@mui/material";
 import { getDataTable } from "./convertDataBalance";
 import { getDataColumns } from "./columnBalance";
 import NoData from "./NoData";
-import { debug } from "console";
+import { deleteItemNullIcomeCashFlow } from "./../../utility/index";
 
 export interface IBalanceSheetProps {
   data: {
@@ -30,6 +30,14 @@ interface TableCellProps {
   row: any;
   column: {
     name: string;
+  };
+  tableRow: {
+    key: string;
+    type: symbol;
+  };
+  tableColumn: {
+    key: string;
+    type: symbol;
   };
 }
 
@@ -100,34 +108,6 @@ export function BalanceSheet(props: IBalanceSheetProps) {
     );
   };
 
-  const deleteItem = (arr: any) => {
-    return arr
-      .filter((item: any) => {
-        if (
-          item.reported_time_display0 === "--" &&
-          item.reported_time_display1 === "--" &&
-          item.reported_time_display2 === "--" &&
-          item.reported_time_display3 === "--"
-        ) {
-          return false;
-        }
-        return true;
-      })
-      .map((item: any) => {
-        if (
-          (item.reported_time_display0 !== "--" ||
-            item.reported_time_display1 !== "--" ||
-            item.reported_time_display2 !== "--" ||
-            item.reported_time_display3 !== "--"
-          ) &&
-          item.items
-        ) {
-          return { ...item, items: deleteItem(item.items) };
-        }
-        return item;
-      });
-  };
-
   return (
     <div>
       <div className={style.financicalInfoTable}>
@@ -144,7 +124,7 @@ export function BalanceSheet(props: IBalanceSheetProps) {
             className={style.financicalInfoTableBtnEpCo}
             onClick={collapseAll}
           >
-            <Image src="/ic-collapse.png" width={12} height={12} />
+            <Image src="/ic-collapse.png" width={12} height={12} alt='' />
             <span style={{ marginLeft: 12 }}>
               {intl.formatMessage({ id: "lang_collapse" })}
             </span>
@@ -154,7 +134,7 @@ export function BalanceSheet(props: IBalanceSheetProps) {
             className={style.financicalInfoTableBtnEpCo}
             onClick={expandAll}
           >
-            <Image src="/ic-expand.png" width={12} height={12} />
+            <Image src="/ic-expand.png" width={12} height={12} alt='' />
             <span style={{ marginLeft: 12 }}>
               {intl.formatMessage({ id: "lang_expand" })}
             </span>
@@ -163,7 +143,7 @@ export function BalanceSheet(props: IBalanceSheetProps) {
       </div>
       <Paper>
         <Grid
-          rows={deleteItem(getDataTable(data, queryString))}
+          rows={deleteItemNullIcomeCashFlow(getDataTable(data, queryString))}
           columns={getDataColumns(data)}
         >
           <TreeDataState

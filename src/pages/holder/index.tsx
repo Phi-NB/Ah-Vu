@@ -50,7 +50,6 @@ const Holder: NextPage<HolderProps> = ({ data = { text: "Holder" } }) => {
     setDisplayInsiderRoster(false);
     setDisplayInsiderTransaction(true);
   };
-  console.log(data[obj].holders);
 
   return (
     <React.Fragment>

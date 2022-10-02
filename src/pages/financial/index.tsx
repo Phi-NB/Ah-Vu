@@ -72,6 +72,7 @@ const Financial: NextPage<FinancialProps> = ({
   const getDataSelect = (value: IDataSelect) => {
     setDataSelect(value.target.value);
   };
+
   return (
     <React.Fragment>
       <main>
@@ -79,7 +80,6 @@ const Financial: NextPage<FinancialProps> = ({
           <div className="lm_content">
             <div className="wrapComponent">
               {/* ---- Financial ---- */}
-
               <div className="financical">
                 <div className={style.financicalTool}>
                   <div className={`${style.financicalGroupBtn}`}>
