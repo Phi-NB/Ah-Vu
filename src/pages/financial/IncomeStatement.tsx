@@ -157,7 +157,11 @@ export function IncomeStatement(props: IIncomeStatementProps) {
         <Grid
           component={Paper}
           rows={deleteItemNullIcomeCashFlow(getDataTable(data, queryString))}
-          columns={getDataColumns(data)}
+          columns={getDataColumns(
+            queryString === "Annual"
+              ? data.financials.income
+              : data.financials.income_quarterly
+          )}
         >
           <TreeDataState
             expandedRowIds={expandedRowIds}

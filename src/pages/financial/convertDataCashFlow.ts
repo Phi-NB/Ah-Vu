@@ -2,17 +2,13 @@ import { convertValue } from "./../../utility/index";
 
 export const getDataTable = (propsData: any, queryString: string) => {
   let data: { [x: string]: any }[] = [];
-
+  let data_ttm: { [x: string]: any }[] = [];
   if (queryString === "Annual") {
-    data = [
-      ...propsData.financials.cashflow,
-      ...propsData.financials.cashflow_ttm,
-    ];
+    (data = propsData.financials.cashflow),
+      (data_ttm = propsData.financials.cashflow_ttm);
   } else {
-    data = [
-      ...propsData.financials.cashflow_quarterly,
-      ...propsData.financials.cashflow_quarterly_ttm,
-    ];
+    data = propsData.financials.cashflow_quarterly;
+    data_ttm = propsData.financials.cashflow_quarterly_ttm;
   }
 
   const arrTree = [
@@ -308,14 +304,15 @@ export const getDataTable = (propsData: any, queryString: string) => {
     },
   ];
 
+
   const convertArr = (arr1: any) => {
     return arr1.map((item: any) => {
       if (item.items && item.items.length !== 0) {
         return {
           breakDown: item.title,
           ttm:
-            data[4] && data[4][item.key]
-              ? convertValue(data[4][item.key])
+            data_ttm[0] && data_ttm[0][item.key]
+              ? convertValue(data_ttm[0][item.key])
               : "--",
           reported_time_display3:
             data[3] && data[3][item.key]
@@ -340,7 +337,9 @@ export const getDataTable = (propsData: any, queryString: string) => {
       return {
         breakDown: item.title,
         ttm:
-          data[4] && data[4][item.key] ? convertValue(data[4][item.key]) : "--",
+          data_ttm[0] && data_ttm[0][item.key]
+            ? convertValue(data_ttm[0][item.key])
+            : "--",
         reported_time_display3:
           data[3] && data[3][item.key] ? convertValue(data[3][item.key]) : "--",
         reported_time_display2:
@@ -352,6 +351,8 @@ export const getDataTable = (propsData: any, queryString: string) => {
       };
     });
   };
+  // console.log(convertArr(arrTree));
 
   return convertArr(arrTree);
+
 };

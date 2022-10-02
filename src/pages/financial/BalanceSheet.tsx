@@ -14,7 +14,7 @@ import { Tooltip } from "@mui/material";
 import { getDataTable } from "./convertDataBalance";
 import { getDataColumns } from "./columnBalance";
 import NoData from "./NoData";
-import { deleteItemNullIcomeCashFlow } from "./../../utility/index";
+import { deleteItemNullBalance } from "./../../utility/index";
 
 export interface IBalanceSheetProps {
   data: {
@@ -124,7 +124,7 @@ export function BalanceSheet(props: IBalanceSheetProps) {
             className={style.financicalInfoTableBtnEpCo}
             onClick={collapseAll}
           >
-            <Image src="/ic-collapse.png" width={12} height={12} alt='' />
+            <Image src="/ic-collapse.png" width={12} height={12} alt="" />
             <span style={{ marginLeft: 12 }}>
               {intl.formatMessage({ id: "lang_collapse" })}
             </span>
@@ -134,7 +134,7 @@ export function BalanceSheet(props: IBalanceSheetProps) {
             className={style.financicalInfoTableBtnEpCo}
             onClick={expandAll}
           >
-            <Image src="/ic-expand.png" width={12} height={12} alt='' />
+            <Image src="/ic-expand.png" width={12} height={12} alt="" />
             <span style={{ marginLeft: 12 }}>
               {intl.formatMessage({ id: "lang_expand" })}
             </span>
@@ -143,8 +143,12 @@ export function BalanceSheet(props: IBalanceSheetProps) {
       </div>
       <Paper>
         <Grid
-          rows={deleteItemNullIcomeCashFlow(getDataTable(data, queryString))}
-          columns={getDataColumns(data)}
+          rows={deleteItemNullBalance(getDataTable(data, queryString))}
+          columns={getDataColumns(
+            queryString === "Annual"
+              ? data.financials.balance_sheet
+              : data.financials.balance_sheet_quarterly
+          )}
         >
           <TreeDataState
             expandedRowIds={expandedRowIds}

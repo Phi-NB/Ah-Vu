@@ -119,6 +119,14 @@ export function CashFlow(props: ICashFlowProps) {
     );
   };
 
+  console.log(
+    getDataColumns(
+      queryString === "Annual"
+        ? data.financials.cashflow
+        : data.financials.cashflow_quarterly
+    )
+  );
+
   return (
     <div>
       <div className={style.financicalInfoTable}>
@@ -155,7 +163,11 @@ export function CashFlow(props: ICashFlowProps) {
       <Paper>
         <Grid
           rows={deleteItemNullIcomeCashFlow(getDataTable(data, queryString))}
-          columns={getDataColumns(data)}
+          columns={getDataColumns(
+            queryString === "Annual"
+              ? data.financials.cashflow
+              : data.financials.cashflow_quarterly
+          )}
         >
           <TreeDataState
             expandedRowIds={expandedRowIds}

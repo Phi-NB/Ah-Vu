@@ -2,13 +2,13 @@ import { convertValue } from './../../utility/index'
 
 export const getDataTable = (propsData: any, queryString: string) => {
   let data: { [x: string]: any }[] = [];
+  let data_ttm: { [x: string]: any }[] = [];
   if (queryString === "Annual") {
-    data = [...propsData.financials.income, ...propsData.financials.income_ttm];
+    data = propsData.financials.income,
+    data_ttm = propsData.financials.income_ttm;
   } else {
-    data = [
-      ...propsData.financials.income_quarterly,
-      ...propsData.financials.income_quarterly_ttm,
-    ];
+    data = propsData.financials.income_quarterly
+    data_ttm = propsData.financials.income_quarterly_ttm
   }
 
 
@@ -397,8 +397,8 @@ export const getDataTable = (propsData: any, queryString: string) => {
         return {
           breakDown: item.title,
           ttm:
-            data[4] && data[4][item.key]
-              ? convertValue(data[4][item.key])
+            data_ttm[0] && data_ttm[0][item.key]
+              ? convertValue(data_ttm[0][item.key])
               : "--",
           reported_time_display3:
             data[3] && data[3][item.key]
@@ -423,7 +423,9 @@ export const getDataTable = (propsData: any, queryString: string) => {
       return {
         breakDown: item.title,
         ttm:
-          data[4] && data[4][item.key] ? convertValue(data[4][item.key]) : "--",
+          data_ttm[0] && data_ttm[0][item.key]
+            ? convertValue(data_ttm[0][item.key])
+            : "--",
         reported_time_display3:
           data[3] && data[3][item.key] ? convertValue(data[3][item.key]) : "--",
         reported_time_display2:

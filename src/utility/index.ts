@@ -19,7 +19,6 @@ export const convertDate = (value: string) => {
   return [month, day, year].join("/");
 };
 
-
 export const deleteItemNullIcomeCashFlow = (arr: any) => {
   return arr
     .filter((item: any) => {
@@ -53,7 +52,40 @@ export const deleteItemNullIcomeCashFlow = (arr: any) => {
       }
       return item;
     });
-}
+};
+
+export const deleteItemNullBalance = (arr: any) => {
+  return arr
+    .filter((item: any) => {
+      if (
+        item.reported_time_display0 === "--" &&
+        item.reported_time_display1 === "--" &&
+        item.reported_time_display2 === "--" &&
+        item.reported_time_display3 === "--"
+      ) {
+        return false;
+      }
+      return true;
+    })
+    .map((item: any) => {
+      if (
+        (item.reported_time_display0 !== "--" ||
+          item.reported_time_display1 !== "--" ||
+          item.reported_time_display2 !== "--" ||
+          item.reported_time_display3 !== "--") &&
+        item.items
+      ) {
+        return { ...item, items: deleteItemNullBalance(item.items) };
+      }
+      return item;
+    })
+    .map((item: any) => {
+      if (item.items && item.items.length === 0) {
+        delete item.items;
+      }
+      return item;
+    });
+};
 
 export const timeConverter = (date: number) => {
   var a = new Date(date);
